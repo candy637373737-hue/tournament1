@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Match Center - Sentinels SportsHub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c3c0ff",
+                        "surface-container-high": "#1b2b3f",
+                        "on-secondary-fixed": "#0f0069",
+                        "outline-variant": "#45464d",
+                        "victory-gold": "#F59E0B",
+                        "field-green": "#10B981",
+                        "inverse-on-surface": "#213145",
+                        "outline": "#909097",
+                        "primary": "#bec6e0",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "electric-indigo": "#4F46E5",
+                        "tertiary-container": "#251400",
+                        "surface-container-low": "#0b1c30",
+                        "slate-950": "#020617",
+                        "tertiary": "#ffb95f",
+                        "on-tertiary-container": "#b47300",
+                        "on-secondary-container": "#b3b1ff",
+                        "on-secondary-fixed-variant": "#3323cc",
+                        "on-surface-variant": "#c6c6cd",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#26364a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-primary": "#565e74",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-highest": "#26364a",
+                        "surface-bright": "#2a3a4f",
+                        "on-primary-container": "#798098",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d3e4fe",
+                        "on-primary": "#283044",
+                        "on-surface": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#d3e4fe",
+                        "error-container": "#93000a",
+                        "surface": "#031427",
+                        "penalty-red": "#EF4444",
+                        "on-secondary": "#1d00a5",
+                        "surface-container-lowest": "#000f21",
+                        "surface-dim": "#031427",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#3626ce",
+                        "secondary-fixed": "#e2dfff",
+                        "on-tertiary": "#472a00",
+                        "surface-container": "#102034",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "championship-blue": "#0F172A",
+                        "primary-container": "#0f172a",
+                        "background": "#031427",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-tint": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "48px",
+                        "base": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "display-score": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-score": ["72px", { "lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .live-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #4F46E5; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<a href="index.html" class="text-headline-md font-headline-md font-bold tracking-tight text-on-surface">Sentinels SportsHub</a>
+<nav class="hidden md:flex gap-6 h-full items-center">
+<a class="text-on-surface-variant font-medium hover:text-electric-indigo transition-colors h-full flex items-center" href="index.html">Discover</a>
+<a class="text-electric-indigo border-b-2 border-electric-indigo h-full flex items-center" href="live.html">Live Ticker</a>
+<a class="text-on-surface-variant font-medium hover:text-electric-indigo transition-colors h-full flex items-center" href="tournaments.html">Tournaments</a>
+<a class="text-on-surface-variant font-medium hover:text-electric-indigo transition-colors h-full flex items-center" href="dashboard.html">Dashboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<a href="dashboard.html">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+</a>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex fixed left-0 top-16 h-[calc(100vh-4rem)] flex-col p-4 z-40 bg-surface-container dark:bg-surface-container-lowest border-r border-outline-variant w-64">
+<div class="mb-8 flex items-center gap-4">
+<img alt="Athlete Passport Avatar" class="w-10 h-10 rounded border border-outline-variant object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+<div>
+<h2 class="text-body-md font-body-md font-bold text-on-surface">Sentinels Hub</h2>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Elite Athlete Portal</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg p-3 flex items-center gap-3" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg p-3 flex items-center gap-3" href="tournaments.html">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="text-body-md font-body-md">Tournaments</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container font-bold rounded-lg p-3 flex items-center gap-3" href="live.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sports</span>
+<span class="text-body-md font-body-md">Live Match Center</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg p-3 flex items-center gap-3" href="index.html">
+<span class="material-symbols-outlined">home</span>
+<span class="text-body-md font-body-md">Home</span>
+</a>
+</nav>
+</aside>
+
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 p-margin-mobile md:p-gutter lg:p-margin-desktop overflow-y-auto">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<!-- Scoreboard Hero -->
+<section class="glass-panel rounded-xl p-8 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/20 to-transparent pointer-events-none"></div>
+<div class="flex items-center gap-2 mb-4 bg-surface-variant px-3 py-1 rounded-full border border-outline-variant z-10">
+<div class="w-2 h-2 rounded-full bg-field-green live-dot"></div>
+<span class="text-data-mono font-data-mono text-field-green font-bold tracking-widest">LIVE</span>
+<span class="text-data-mono font-data-mono text-on-surface ml-2" id="live-timer">72:31</span>
+</div>
+<div class="flex justify-between items-center w-full max-w-3xl z-10">
+<!-- Team A -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-24 h-24 bg-electric-indigo/20 border border-electric-indigo rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-indigo text-5xl">shield</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-on-surface font-bold">Sentinels FC</h2>
+</div>
+<!-- Score -->
+<div class="flex items-baseline gap-4">
+<span class="text-display-score font-display-score text-electric-indigo" id="score-a">2</span>
+<span class="text-headline-lg font-headline-lg text-outline-variant">-</span>
+<span class="text-display-score font-display-score text-on-surface" id="score-b">1</span>
+</div>
+<!-- Team B -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-24 h-24 bg-surface-bright border border-outline-variant rounded-full flex items-center justify-center opacity-80">
+<span class="material-symbols-outlined text-on-surface-variant text-5xl">sports_soccer</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-on-surface-variant font-bold">Titan United</h2>
+</div>
+</div>
+</section>
+
+<!-- Grid Layout for Stats & Insights -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- AI Match Prediction -->
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-victory-gold">smart_toy</span>
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-widest">AI Prediction Engine</h3>
+</div>
+<div class="mb-4 flex justify-between text-body-md font-body-md">
+<span class="font-bold text-electric-indigo">Sentinels Win (58%)</span>
+<span class="text-outline-variant">Draw (15%)</span>
+<span class="font-bold text-on-surface-variant">Titan Win (27%)</span>
+</div>
+<div class="w-full h-3 bg-slate-800 flex overflow-hidden mb-6 rounded-sm">
+<div class="bg-electric-indigo h-full" style="width: 58%"></div>
+<div class="bg-surface-variant h-full border-l border-r border-background" style="width: 15%"></div>
+<div class="bg-outline h-full" style="width: 27%"></div>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded flex gap-4 items-start">
+<span class="material-symbols-outlined text-electric-indigo mt-1">lightbulb</span>
+<div>
+<h4 class="text-data-mono font-data-mono text-on-surface mb-1">Coach Insight</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Turning point: 65' substitution increased attacking efficiency. Sentinels are maintaining high pressure in the final third, exploiting Titan's left flank vulnerability.</p>
+</div>
+</div>
+</div>
+
+<!-- Match Stats -->
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-widest mb-6">Match Statistics</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-data-mono font-data-mono mb-2">
+<span class="text-electric-indigo">62%</span>
+<span class="text-on-surface-variant">Possession</span>
+<span class="text-outline-variant">38%</span>
+</div>
+<div class="w-full h-2 bg-slate-800 flex overflow-hidden rounded-sm">
+<div class="bg-electric-indigo h-full" style="width: 62%"></div>
+<div class="bg-outline h-full" style="width: 38%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-data-mono font-data-mono mb-2">
+<span class="text-electric-indigo">14</span>
+<span class="text-on-surface-variant">Shots (On Target)</span>
+<span class="text-outline-variant">5</span>
+</div>
+<div class="w-full h-2 bg-slate-800 flex overflow-hidden rounded-sm">
+<div class="bg-electric-indigo h-full" style="width: 73%"></div>
+<div class="bg-outline h-full" style="width: 27%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Right Column (Live Ticker) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="glass-panel rounded-xl border border-outline-variant flex flex-col h-full max-h-[600px]">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container/50">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-widest">Live Ticker</h3>
+<span class="material-symbols-outlined text-outline-variant text-sm">history</span>
+</div>
+<div class="p-4 overflow-y-auto space-y-4 flex-1 custom-scrollbar" id="live-ticker-list">
+<!-- Dynamically populated -->
+</div>
+</div>
+</div>
+</div>
+
+<!-- Lineups Pitch View -->
+<section class="bg-surface-container-high rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container/50">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-widest">Tactical Lineups</h3>
+<div class="flex gap-4">
+<button class="text-label-caps font-label-caps text-electric-indigo font-bold underline">Sentinels FC</button>
+<button class="text-label-caps font-label-caps text-on-surface-variant hover:text-on-surface">Titan United</button>
+</div>
+</div>
+<div class="p-8 flex justify-center items-center relative min-h-[400px] bg-slate-950">
+<div class="w-full max-w-2xl h-full flex flex-col justify-between z-10 py-12">
+<div class="flex justify-around px-24">
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="alert('Player #10 (Rahul Sharma) - 1 Goal, 4 Shots')">
+<div class="w-10 h-10 rounded-full bg-surface border-2 border-electric-indigo flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="text-data-mono font-data-mono font-bold text-on-surface">10</span>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Rahul (FW)</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="alert('Player #9 - 1 Goal')">
+<div class="w-10 h-10 rounded-full bg-surface border-2 border-electric-indigo flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="text-data-mono font-data-mono font-bold text-on-surface">9</span>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Striker</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Populate Live ticker list
+    const tickerContainer = document.getElementById('live-ticker-list');
+    if (tickerContainer) {
+        tickerContainer.innerHTML = SentinelsData.liveTickerEvents.map(e => `
+            <div class="flex gap-4">
+                <div class="text-data-mono font-data-mono text-electric-indigo font-bold w-12 shrink-0">${e.time}</div>
+                <div class="border-l border-outline-variant pl-4 pb-4">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="material-symbols-outlined text-field-green text-sm">${e.icon}</span>
+                        <span class="text-body-md font-body-md text-on-surface font-semibold">${e.type}</span>
+                    </div>
+                    <p class="text-body-md font-body-md text-on-surface-variant text-sm">${e.detail}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+});
+</script>
+</body>
+</html>

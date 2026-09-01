@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Athlete Dashboard - Sentinels SportsHub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c3c0ff",
+                        "surface-container-high": "#1b2b3f",
+                        "on-secondary-fixed": "#0f0069",
+                        "outline-variant": "#45464d",
+                        "victory-gold": "#F59E0B",
+                        "field-green": "#10B981",
+                        "inverse-on-surface": "#213145",
+                        "outline": "#909097",
+                        "primary": "#bec6e0",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "electric-indigo": "#4F46E5",
+                        "tertiary-container": "#251400",
+                        "surface-container-low": "#0b1c30",
+                        "slate-950": "#020617",
+                        "tertiary": "#ffb95f",
+                        "on-tertiary-container": "#b47300",
+                        "on-secondary-container": "#b3b1ff",
+                        "on-secondary-fixed-variant": "#3323cc",
+                        "on-surface-variant": "#c6c6cd",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#26364a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-primary": "#565e74",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-highest": "#26364a",
+                        "surface-bright": "#2a3a4f",
+                        "on-primary-container": "#798098",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d3e4fe",
+                        "on-primary": "#283044",
+                        "on-surface": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#d3e4fe",
+                        "error-container": "#93000a",
+                        "surface": "#031427",
+                        "penalty-red": "#EF4444",
+                        "on-secondary": "#1d00a5",
+                        "surface-container-lowest": "#000f21",
+                        "surface-dim": "#031427",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#3626ce",
+                        "secondary-fixed": "#e2dfff",
+                        "on-tertiary": "#472a00",
+                        "surface-container": "#102034",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "championship-blue": "#0F172A",
+                        "primary-container": "#0f172a",
+                        "background": "#031427",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-tint": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "48px",
+                        "base": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "display-score": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-score": ["72px", { "lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+        .live-dot {
+            animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.2); }
+        }
+        
+        .chart-line {
+            stroke: #4F46E5;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.5));
+        }
+        .chart-area {
+            fill: url(#chart-gradient);
+            opacity: 0.2;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased overflow-x-hidden min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface-container dark:bg-surface-container-lowest text-electric-indigo dark:text-primary fixed left-0 top-0 h-screen flex-col p-4 z-40 border-r border-outline-variant w-64">
+<div class="mb-8 flex items-center gap-3">
+<img alt="Athlete Passport Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+<div>
+<a href="index.html" class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight block">Sentinels Hub</a>
+<p class="text-label-caps font-label-caps text-on-surface-variant opacity-70">Elite Athlete Portal</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-transform hover:translate-x-1" href="dashboard.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-label-caps font-label-caps">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 hover:translate-x-1" href="tournaments.html">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="text-label-caps font-label-caps">Tournaments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 hover:translate-x-1" href="live.html">
+<span class="material-symbols-outlined">sports</span>
+<span class="text-label-caps font-label-caps">Live Center</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 hover:translate-x-1" href="index.html">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-caps font-label-caps">Home Page</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-4 border-t border-outline-variant flex flex-col gap-2">
+<button onclick="alert('Demo Mode: Upgraded to Pro Tier!')" class="w-full py-2 px-4 bg-electric-indigo text-white font-label-caps text-label-caps rounded-lg hover:bg-opacity-90 transition-colors mb-4">Upgrade to Pro</button>
+</div>
+</nav>
+
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 bg-surface dark:bg-surface-dim text-electric-indigo dark:text-primary border-b border-outline-variant sticky top-0 z-50">
+<a href="index.html" class="text-headline-md font-headline-md font-bold tracking-tight text-on-surface">Sentinels SportsHub</a>
+<div class="flex gap-4">
+<a href="dashboard.html" class="hover:text-electric-indigo transition-colors text-on-surface-variant">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+</a>
+</div>
+</header>
+
+<!-- Main Canvas -->
+<main class="flex-grow md:ml-64 p-margin-mobile md:p-margin-desktop flex flex-col gap-8 w-full max-w-container-max mx-auto overflow-y-auto">
+<!-- Welcome Header & Passport Card -->
+<section class="flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-end">
+<div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface mb-2">Good Morning, Rahul 👋</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Ready to dominate the pitch today?</p>
+</div>
+<!-- Athlete Passport -->
+<div class="glass-panel p-4 rounded-xl flex items-center gap-4 min-w-[300px]">
+<div class="w-16 h-16 rounded border border-electric-indigo flex items-center justify-center bg-championship-blue relative overflow-hidden">
+<span class="material-symbols-outlined text-electric-indigo opacity-20 absolute text-4xl">qr_code_2</span>
+<img alt="QR Code" class="w-full h-full object-cover mix-blend-screen" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SSH-ATH-2026-000123"/>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">VERIFIED ATHLETE</p>
+<p class="text-data-mono font-data-mono text-electric-indigo font-bold tracking-widest" id="passport-id">SSH-ATH-2026-000123</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-field-green shadow-[0_0_8px_#10B981]"></span>
+<span class="text-label-caps font-label-caps text-field-green">Status: Active</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Stats Grid (Bento Style) -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-primary-container p-6 rounded-xl border border-outline-variant flex flex-col justify-between">
+<span class="material-symbols-outlined text-outline mb-2">sports_soccer</span>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">TOTAL MATCHES</p>
+<p class="text-headline-lg font-headline-lg text-on-surface" id="stat-matches">42</p>
+</div>
+<div class="bg-primary-container p-6 rounded-xl border border-outline-variant flex flex-col justify-between">
+<span class="material-symbols-outlined text-outline mb-2">sports_score</span>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">GOALS SCORED</p>
+<p class="text-headline-lg font-headline-lg text-on-surface" id="stat-goals">27</p>
+</div>
+<div class="bg-primary-container p-6 rounded-xl border border-outline-variant flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-field-green rounded-full blur-3xl opacity-20"></div>
+<span class="material-symbols-outlined text-field-green mb-2">trending_up</span>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">WIN RATE</p>
+<p class="text-headline-lg font-headline-lg text-on-surface" id="stat-winrate">87<span class="text-body-lg text-on-surface-variant">%</span></p>
+</div>
+<div class="bg-primary-container p-6 rounded-xl border border-outline-variant flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-victory-gold rounded-full blur-3xl opacity-20"></div>
+<span class="material-symbols-outlined text-victory-gold mb-2">military_tech</span>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">ACHIEVEMENTS</p>
+<p class="text-headline-lg font-headline-lg text-on-surface" id="stat-achievements">12</p>
+</div>
+</section>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Performance Chart -->
+<section class="lg:col-span-2 bg-primary-container rounded-xl border border-outline-variant p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-md font-headline-md text-on-surface">Performance Trend</h3>
+<span class="text-label-caps font-label-caps text-on-surface-variant bg-surface px-3 py-1 rounded border border-outline-variant">LAST 5 MATCHES</span>
+</div>
+<div class="flex-grow w-full h-48 relative flex items-end pt-4">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-outline-variant opacity-30 w-full h-0"></div>
+<div class="border-b border-outline-variant opacity-30 w-full h-0"></div>
+<div class="border-b border-outline-variant opacity-30 w-full h-0"></div>
+<div class="border-b border-outline-variant opacity-30 w-full h-0"></div>
+</div>
+<svg class="w-full h-full absolute inset-0 z-10" preserveaspectratio="none" viewbox="0 0 100 40">
+<defs>
+<lineargradient id="chart-gradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4F46E5" stop-opacity="0.8"></stop>
+<stop offset="100%" stop-color="#031427" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<polygon class="chart-area" points="0,40 0,30 25,20 50,25 75,10 100,5 100,40"></polygon>
+<polyline class="chart-line" points="0,30 25,20 50,25 75,10 100,5"></polyline>
+<circle cx="0" cy="30" fill="#020617" r="1.5" stroke="#4F46E5" stroke-width="0.5"></circle>
+<circle cx="25" cy="20" fill="#020617" r="1.5" stroke="#4F46E5" stroke-width="0.5"></circle>
+<circle cx="50" cy="25" fill="#020617" r="1.5" stroke="#4F46E5" stroke-width="0.5"></circle>
+<circle cx="75" cy="10" fill="#020617" r="1.5" stroke="#4F46E5" stroke-width="0.5"></circle>
+<circle cx="100" cy="5" fill="#020617" r="1.5" stroke="#4F46E5" stroke-width="0.5"></circle>
+</svg>
+<div class="absolute -bottom-6 w-full flex justify-between text-data-mono font-data-mono text-outline text-[10px]">
+<span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span>
+</div>
+</div>
+</section>
+
+<!-- Upcoming Match Card -->
+<section class="lg:col-span-1 glass-panel rounded-xl p-6 relative flex flex-col justify-between h-full min-h-[300px]">
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-field-green live-dot shadow-[0_0_8px_#10B981]"></span>
+<span class="text-label-caps font-label-caps text-field-green tracking-widest">UPCOMING</span>
+</div>
+<div>
+<h3 class="text-label-caps font-label-caps text-on-surface-variant mb-4 opacity-70">INTER-COLLEGE LEAGUE</h3>
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-bright rounded flex items-center justify-center border border-outline-variant font-headline-md text-on-surface">S</div>
+<span class="text-headline-md font-headline-md text-on-surface">Sentinels FC</span>
+</div>
+<div class="flex items-center gap-2 text-outline-variant px-4">
+<span class="text-label-caps font-label-caps">VS</span>
+<div class="h-px bg-outline-variant flex-grow opacity-50"></div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-bright rounded flex items-center justify-center border border-outline-variant font-headline-md text-on-surface">T</div>
+<span class="text-headline-md font-headline-md text-on-surface">Titan United</span>
+</div>
+</div>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex justify-between items-end">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">KICKOFF</p>
+<p class="text-data-mono font-data-mono text-on-surface">TMRW, 17:00</p>
+</div>
+<div class="text-right">
+<a href="live.html" class="px-4 py-2 bg-electric-indigo hover:bg-secondary-container text-white text-xs font-bold rounded-lg transition-colors inline-block">
+Join Live Center
+</a>
+</div>
+</div>
+</section>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Recent Results List -->
+<section class="bg-primary-container rounded-xl border border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-md font-headline-md text-on-surface">Recent Results</h3>
+<a class="text-label-caps font-label-caps text-electric-indigo flex items-center gap-1 hover:underline" href="live.html">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+AI Match Insights
+</a>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-surface p-4 rounded-lg border border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-3 w-1/3">
+<span class="w-2 h-2 rounded-full bg-field-green"></span>
+<span class="text-body-md font-body-md text-on-surface font-semibold truncate">Sentinels FC</span>
+</div>
+<div class="bg-surface-bright px-4 py-1 rounded font-display-score text-body-lg text-on-surface font-bold tracking-widest border border-outline-variant">
+3 - 1
+</div>
+<div class="flex items-center gap-3 w-1/3 justify-end text-on-surface-variant">
+<span class="text-body-md font-body-md truncate">Rival Utd</span>
+</div>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-3 w-1/3 text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="text-body-md font-body-md truncate">Sentinels FC</span>
+</div>
+<div class="bg-surface-bright px-4 py-1 rounded font-display-score text-body-lg text-on-surface font-bold tracking-widest border border-outline-variant">
+0 - 0
+</div>
+<div class="flex items-center gap-3 w-1/3 justify-end">
+<span class="text-body-md font-body-md text-on-surface font-semibold truncate">City Kings</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Recommended Tournaments -->
+<section class="flex flex-col">
+<div class="flex justify-between items-center mb-6 px-2">
+<h3 class="text-headline-md font-headline-md text-on-surface">Recommended for You</h3>
+<a href="tournaments.html" class="text-label-caps font-label-caps text-electric-indigo hover:underline">VIEW ALL</a>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar" id="recommended-tournaments">
+<!-- Dynamically inserted from data.js -->
+</div>
+</section>
+</div>
+</main>
+
+<script src="js/data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Populate stats
+    const profile = SentinelsData.userProfile;
+    document.getElementById('stat-matches').textContent = profile.stats.totalMatches;
+    document.getElementById('stat-goals').textContent = profile.stats.goalsScored;
+    document.getElementById('stat-winrate').childNodes[0].textContent = profile.stats.winRate.replace('%','');
+    document.getElementById('stat-achievements').textContent = profile.stats.achievementsCount;
+    document.getElementById('passport-id').textContent = profile.id;
+
+    // Render recommended tournaments
+    const recContainer = document.getElementById('recommended-tournaments');
+    if (recContainer) {
+        recContainer.innerHTML = SentinelsData.tournaments.map(t => `
+            <div onclick="window.location.href='tournaments.html'" class="snap-start shrink-0 w-64 bg-primary-container rounded-xl border border-outline-variant overflow-hidden flex flex-col hover:border-electric-indigo transition-colors cursor-pointer">
+                <div class="h-24 bg-surface-bright relative" style="background-image: url('${t.image}'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary-container to-transparent"></div>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <span class="text-label-caps font-label-caps text-electric-indigo mb-1">${t.sport.toUpperCase()}</span>
+                    <h4 class="text-body-lg font-body-lg font-semibold text-on-surface leading-tight mb-2">${t.title}</h4>
+                    <div class="mt-auto pt-4 border-t border-outline-variant flex justify-between items-center text-on-surface-variant">
+                        <div class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">group</span>
+                            <span class="text-data-mono font-data-mono text-[12px]">${t.teams} Teams</span>
+                        </div>
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tournament Discovery - Sentinels SportsHub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#c3c0ff",
+                      "surface-container-high": "#1b2b3f",
+                      "on-secondary-fixed": "#0f0069",
+                      "outline-variant": "#45464d",
+                      "victory-gold": "#F59E0B",
+                      "field-green": "#10B981",
+                      "inverse-on-surface": "#213145",
+                      "outline": "#909097",
+                      "primary": "#bec6e0",
+                      "secondary-fixed-dim": "#c3c0ff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "electric-indigo": "#4F46E5",
+                      "tertiary-container": "#251400",
+                      "surface-container-low": "#0b1c30",
+                      "slate-950": "#020617",
+                      "tertiary": "#ffb95f",
+                      "on-tertiary-container": "#b47300",
+                      "on-secondary-container": "#b3b1ff",
+                      "on-secondary-fixed-variant": "#3323cc",
+                      "on-surface-variant": "#c6c6cd",
+                      "error": "#ffb4ab",
+                      "surface-variant": "#26364a",
+                      "tertiary-fixed": "#ffddb8",
+                      "inverse-primary": "#565e74",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-container-highest": "#26364a",
+                      "surface-bright": "#2a3a4f",
+                      "on-primary-container": "#798098",
+                      "on-error-container": "#ffdad6",
+                      "on-background": "#d3e4fe",
+                      "on-primary": "#283044",
+                      "on-surface": "#d3e4fe",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "inverse-surface": "#d3e4fe",
+                      "error-container": "#93000a",
+                      "surface": "#031427",
+                      "penalty-red": "#EF4444",
+                      "on-secondary": "#1d00a5",
+                      "surface-container-lowest": "#000f21",
+                      "surface-dim": "#031427",
+                      "primary-fixed": "#dae2fd",
+                      "secondary-container": "#3626ce",
+                      "secondary-fixed": "#e2dfff",
+                      "on-tertiary": "#472a00",
+                      "surface-container": "#102034",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#131b2e",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "championship-blue": "#0F172A",
+                      "primary-container": "#0f172a",
+                      "background": "#031427",
+                      "primary-fixed-dim": "#bec6e0",
+                      "surface-tint": "#bec6e0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "container-max": "1280px",
+                      "margin-desktop": "48px",
+                      "base": "4px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["JetBrains Mono"],
+                      "body-lg": ["Inter"],
+                      "display-score": ["Space Grotesk"],
+                      "data-mono": ["JetBrains Mono"],
+                      "headline-lg": ["Space Grotesk"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "headline-md": ["Space Grotesk"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                      "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                      "display-score": ["72px", { "lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                      "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                      "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                      "headline-lg-mobile": ["32px", { "lineHeight": "36px", "fontWeight": "700" }],
+                      "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #334155;
+        }
+        
+        .live-dot {
+            animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .3; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-on-surface font-body-md text-body-md overflow-x-hidden min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex bg-surface-container dark:bg-surface-container-lowest docked left-0 h-full w-64 border-r border-outline-variant flat no shadows fixed left-0 top-0 h-screen flex-col p-4 z-40">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="Athlete Passport Avatar" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+</div>
+<div>
+<a href="index.html" class="text-headline-md font-headline-md font-bold text-on-surface block">Sentinels Hub</a>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Elite Athlete Portal</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 flex items-center gap-3 px-4 py-3" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md font-medium">Dashboard</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-all duration-200 flex items-center gap-3 px-4 py-3 shadow-[inset_2px_0_0_0_#4F46E5]" href="tournaments.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="text-body-md font-body-md font-medium">Tournaments</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 flex items-center gap-3 px-4 py-3" href="live.html">
+<span class="material-symbols-outlined">sports</span>
+<span class="text-body-md font-body-md font-medium">Live Match Center</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all duration-200 flex items-center gap-3 px-4 py-3" href="index.html">
+<span class="material-symbols-outlined">home</span>
+<span class="text-body-md font-body-md font-medium">Home</span>
+</a>
+</div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-16 md:pt-0 md:ml-64 w-full bg-slate-950 flex flex-col">
+<!-- Search & Filter Header -->
+<section class="w-full px-margin-mobile md:px-margin-desktop py-8 border-b border-outline-variant bg-surface-container-lowest sticky top-0 md:top-0 z-30 shadow-md">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+<div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface">Discover Tournaments</h2>
+<p class="text-on-surface-variant mt-1 text-body-md font-body-md">Find and register for elite athletic competitions worldwide.</p>
+</div>
+</div>
+<!-- Dynamic Filters Bar -->
+<div class="flex flex-col lg:flex-row gap-4 w-full">
+<!-- Search -->
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">search</span>
+<input id="search-input" class="w-full bg-slate-950 border border-outline-variant text-on-surface rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:border-electric-indigo font-data-mono text-data-mono" placeholder="Search tournaments by name or org..." type="text"/>
+</div>
+<!-- Selects -->
+<div class="flex flex-wrap gap-2 lg:gap-4">
+<select id="sport-select" class="bg-slate-950 border border-outline-variant text-on-surface rounded-lg px-4 py-3 focus:outline-none focus:border-electric-indigo font-body-md min-w-[140px]">
+<option value="all">All Sports</option>
+<option value="football">Football</option>
+<option value="basketball">Basketball</option>
+<option value="tennis">Tennis</option>
+<option value="athletics">Athletics</option>
+</select>
+<select id="status-select" class="bg-slate-950 border border-outline-variant text-on-surface rounded-lg px-4 py-3 focus:outline-none focus:border-electric-indigo font-body-md min-w-[140px]">
+<option value="all">All Status</option>
+<option value="open">Registration Open</option>
+<option value="ongoing">Ongoing</option>
+<option value="completed">Completed</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Tournament Grid Area -->
+<div class="w-full px-margin-mobile md:px-margin-desktop py-8 max-w-container-max mx-auto flex-grow flex flex-col xl:flex-row gap-8">
+<!-- Main Dynamic Grid -->
+<div class="flex-grow">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tournament-cards-container">
+<!-- Rendered dynamically -->
+</div>
+</div>
+
+<!-- Venue Map Sidebar -->
+<aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6">
+<div class="bg-primary-container border border-outline-variant rounded-xl p-4 flex flex-col h-[400px]">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-on-surface-variant">map</span>
+<h4 class="text-body-lg font-body-lg font-semibold text-on-surface">Venue Locations</h4>
+</div>
+<div class="flex-grow rounded-lg overflow-hidden relative bg-surface-variant border border-outline-variant">
+<img alt="Map showing tournament venues" class="w-full h-full object-cover opacity-60 mix-blend-luminosity" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80"/>
+<div class="absolute top-1/3 left-1/4 w-3 h-3 bg-electric-indigo rounded-full shadow-[0_0_10px_#4F46E5] border border-white"></div>
+<div class="absolute top-1/2 left-2/3 w-3 h-3 bg-field-green rounded-full shadow-[0_0_10px_#10B981] border border-white live-dot"></div>
+<div class="absolute bottom-1/4 right-1/3 w-3 h-3 bg-victory-gold rounded-full shadow-[0_0_10px_#F59E0B] border border-white"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container to-transparent pointer-events-none"></div>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<p class="text-label-caps font-label-caps text-on-surface-variant">Active Regions</p>
+<div class="flex items-center gap-2 text-sm font-data-mono text-on-surface">
+<div class="w-2 h-2 rounded-full bg-field-green live-dot"></div>
+Pune, India (Ongoing)
+</div>
+<div class="flex items-center gap-2 text-sm font-data-mono text-on-surface">
+<div class="w-2 h-2 rounded-full bg-electric-indigo"></div>
+New York, USA (Open)
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+
+<footer class="bg-surface-container-lowest dark:bg-black text-primary w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 border-t border-outline-variant md:ml-64 mt-auto">
+<div class="text-label-caps font-label-caps text-on-surface">
+© 2026 Sentinels SportsHub. All Rights Reserved.
+</div>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('tournament-cards-container');
+    const searchInput = document.getElementById('search-input');
+    const sportSelect = document.getElementById('sport-select');
+    const statusSelect = document.getElementById('status-select');
+
+    function renderTournaments() {
+        const query = searchInput.value.toLowerCase();
+        const sport = sportSelect.value;
+        const status = statusSelect.value;
+
+        const filtered = SentinelsData.tournaments.filter(t => {
+            const matchesQuery = t.title.toLowerCase().includes(query) || t.org.toLowerCase().includes(query);
+            const matchesSport = sport === 'all' || t.sport === sport;
+            const matchesStatus = status === 'all' || t.status === status;
+            return matchesQuery && matchesSport && matchesStatus;
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="col-span-full py-12 text-center text-on-surface-variant font-data-mono">No tournaments match your search criteria.</div>`;
+            return;
+        }
+
+        container.innerHTML = filtered.map(t => {
+            let statusBadge = '';
+            let actionBtn = '';
+            
+            if (t.status === 'ongoing') {
+                statusBadge = `<div class="absolute top-4 left-4 z-20 flex items-center gap-2 bg-slate-950/80 px-2 py-1 rounded border border-outline-variant backdrop-blur-sm"><div class="w-2 h-2 rounded-full bg-field-green live-dot"></div><span class="text-label-caps font-label-caps text-field-green">Ongoing</span></div>`;
+                actionBtn = `<a href="live.html" class="w-full py-2 bg-field-green text-slate-950 text-center font-bold text-xs rounded uppercase tracking-wide inline-block hover:opacity-90">Watch Live</a>`;
+            } else if (t.status === 'open') {
+                statusBadge = `<div class="absolute top-4 left-4 z-20 flex items-center gap-1 px-2 py-1 rounded bg-slate-950/80 border border-outline-variant"><span class="text-label-caps font-label-caps text-on-surface">Registration Open</span></div>`;
+                actionBtn = `<button onclick="alert('Successfully registered for ${t.title}!')" class="w-full py-2 bg-electric-indigo text-white font-label-caps text-label-caps rounded uppercase tracking-wide hover:bg-opacity-90">Register Now</button>`;
+            } else {
+                statusBadge = `<div class="absolute top-4 left-4 z-20 flex items-center gap-1 px-2 py-1 rounded bg-slate-950/80 border border-outline-variant"><span class="text-label-caps font-label-caps text-on-surface-variant">Completed</span></div>`;
+                actionBtn = `<button onclick="alert('Viewing archived results for ${t.title}')" class="w-full py-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded uppercase tracking-wide hover:bg-surface-bright">View Archive</button>`;
+            }
+
+            return `
+                <article class="bg-primary-container rounded-xl overflow-hidden flex flex-col border border-outline-variant hover:border-electric-indigo transition-all duration-300 relative">
+                    ${statusBadge}
+                    <div class="h-40 w-full relative bg-surface-container-high overflow-hidden">
+                        <img class="w-full h-full object-cover" src="${t.image}" alt="${t.title}" />
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-label-caps font-label-caps text-electric-indigo tracking-wider uppercase">${t.sport}</span>
+                            <span class="material-symbols-outlined text-on-surface-variant">emoji_events</span>
+                        </div>
+                        <h3 class="text-headline-md font-headline-md font-bold text-on-surface mb-1 leading-tight">${t.title}</h3>
+                        <p class="text-data-mono font-data-mono text-on-surface-variant text-sm mb-4">Org: ${t.org}</p>
+                        <div class="mt-auto grid grid-cols-2 gap-3 mb-4">
+                            <div>
+                                <span class="block text-[10px] text-on-surface-variant uppercase tracking-widest font-label-caps mb-1">Dates</span>
+                                <span class="block text-sm font-data-mono text-on-surface">${t.dates}</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-on-surface-variant uppercase tracking-widest font-label-caps mb-1">Prize Pool</span>
+                                <span class="block text-sm font-data-mono text-victory-gold">${t.prize}</span>
+                            </div>
+                        </div>
+                        ${actionBtn}
+                    </div>
+                </article>
+            `;
+        }).join('');
+    }
+
+    searchInput.addEventListener('input', renderTournaments);
+    sportSelect.addEventListener('change', renderTournaments);
+    statusSelect.addEventListener('change', renderTournaments);
+
+    renderTournaments();
+});
+</script>
+</body>
+</html>
